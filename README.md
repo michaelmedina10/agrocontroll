@@ -15,6 +15,8 @@ Este é um sistema no qual será possível supervisionar os agricultores que faz
 3º Faça uma cópia do arquivo envFile <br />
 4º Renomear o arquivo para .env <br />
 5º preencha com suas informações, senha, porta, usuário, seguindo o modelo já pronto <br />
-6º Instale o query builder Knex globalmente com o comando: **npm install knex -g** <br />
-7º execute o comando: **knex migrate:latest** ; // para criar as tabelas no banco de dados usando as migrations já prontas enviadas aqui no repositório <br />
-8º Tudo pronto para executar o servidor, use o comando: **npm start** <br />
+6º Baixe e instale o mysql <br />
+7º Crie um banco de dados chamado agrocontroll, comando: **create database agrocontroll** <br />
+8º Instale o query builder Knex globalmente com o comando: **npm install knex -g** <br />
+9º execute o comando: **knex migrate:latest** ; // para criar as tabelas no banco de dados usando as migrations já prontas enviadas aqui no repositório <br />
+10º Tudo pronto para executar o servidor, use o comando: **npm start** <br />
