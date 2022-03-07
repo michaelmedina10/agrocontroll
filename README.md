@@ -3,6 +3,8 @@
 Este é um sistema no qual será possível supervisionar os agricultores que fazem uso de algum tipo de agrotóxico.
 
 ## FrontEnd
+![image](https://user-images.githubusercontent.com/68739172/157062173-558c2723-8cc0-4125-acc0-4bb2714c80a4.png)
+
 1º Acesse a pasta agrocontroll com o comando: **cd agrocontroll** <br />
 2º Execute o comando: **npm install** ; // Este comando serve para instalar as dependências usadas no front end <br />
 3º Execute o comando: **npm run serve** ; // Este comando irá iniciar a apliação na porta 8080 <br />
