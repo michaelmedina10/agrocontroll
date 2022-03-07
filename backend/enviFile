@@ -1,0 +1,10 @@
+module.exports = {
+    authSecret: "",
+    content:{
+        host: "",
+        port: ,
+        user: "",
+        password: "",
+        database: "agrocontroll",
+  }
+}
