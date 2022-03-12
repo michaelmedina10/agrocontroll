@@ -1,11 +1,9 @@
 const express = require("express");
+require("dotenv/config");
 const consign = require("consign");
-const db = require("./config/db");
-
 const app = express();
 const port = 3000;
 
-app.db = db;
 consign()
   .then("./config/middlewares.js")
   .then("./controller")

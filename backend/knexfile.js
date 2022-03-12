@@ -1,4 +1,5 @@
-const { content } = require("./.env");
+// const { content } = require("./.env");
+const { host, port, user, password, database } = process.env;
 // Update with your config settings.
 
 /**
@@ -6,7 +7,7 @@ const { content } = require("./.env");
  */
 module.exports = {
   client: "mysql",
-  connection: content,
+  connection: { host, port, user, password, database },
   pool: {
     min: 2,
     max: 10,

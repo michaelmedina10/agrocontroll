@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <h1>Developers</h1>
-  </div>
+  <v-container fluid>
+    <Developer />
+  </v-container>
 </template>
 
 <script>
 export default {
   name: "Developers",
+  components: {
+    Developer: () => import("@/components/DevelopersCard"),
+  },
 };
 </script>
 
