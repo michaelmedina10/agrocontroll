@@ -176,7 +176,10 @@ export default {
           );
           this.$store.state.farmes[editedIndex] = itemsToBeEdited;
         })
-        .catch((err) => res.send(err));
+        .catch((err) => {
+          this.status = "Erro para atualizar";
+          res.send(err);
+        });
       const id = setTimeout(() => {
         this.closeDialog();
         clearInterval(id);
