@@ -5,46 +5,19 @@
         <v-btn small fab color="warning" @click.stop="update(item)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-dialog
-          v-model="dialogRemoveFarmer"
-          max-width="500px"
-          persistent
-          :retain-focus="false"
+        <v-btn
+          small
+          fab
+          color="error"
+          class="ml-3"
+          @click="DialogOfRemove(item)"
         >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              small
-              fab
-              color="error"
-              class="ml-3"
-              @click="DialogOfRemove(item)"
-              v-on="on"
-            >
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <h1>Remover Registro</h1>
-            </v-card-title>
-            <v-card-text>
-              <span
-                >O Registro com ID:{{ farmer.id }} Nome:{{ farmer.nome }} será
-                removido</span
-              >
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" @click="remove"> Remover </v-btn>
-              <v-btn class="ml-3" @click="dialogRemoveFarmer = false">
-                Cancelar
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
       </template>
     </v-data-table>
     <FarmerDialog v-model="dialog" />
+    <FarmerDialogRemove v-model="dialogRemoveFarmer" />
   </div>
 </template>
 
@@ -52,7 +25,8 @@
 import Axios from "axios";
 export default {
   components: {
-    FarmerDialog: () => import("@/components/FarmerDialog.vue"),
+    FarmerDialog: () => import("@/components/FarmerDialogUpdate.vue"),
+    FarmerDialogRemove: () => import("@/components/FarmerDialogRemove.vue"),
   },
   data() {
     return {
@@ -66,7 +40,6 @@ export default {
         { text: "Pesticida", value: "pesticida" },
         { text: "Ações", value: "acao", sortable: false },
       ],
-      farmer: {},
     };
   },
   methods: {
@@ -83,20 +56,7 @@ export default {
     DialogOfRemove(farmer) {
       console.log("Removendo...");
       this.dialogRemoveFarmer = true;
-      this.farmer = farmer;
-    },
-    remove() {
-      Axios.delete(
-        `${process.env.VUE_APP_BASEURL}/agrousers/${this.farmer.id}`
-      ).then((_) => {
-        const editedIndex = this.$store.state.farmes.indexOf(
-          this.$store.state.farmes.filter(
-            (farmer) => farmer.id == this.farmer.id
-          )[0]
-        );
-        this.$store.state.farmes.splice(editedIndex);
-        this.dialogRemoveFarmer = false;
-      });
+      this.$store.state.farmer = farmer;
     },
   },
   mounted() {
