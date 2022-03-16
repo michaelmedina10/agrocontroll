@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="value">
+  <v-dialog v-model="value" max-width="500px">
     <v-card>
       <v-card-title><h1>Remover Registros</h1></v-card-title>
       <v-card-text>

@@ -5,11 +5,13 @@ module.exports = (app) => {
     try {
       const user = await farmerRepository.getByEmail(body.email);
 
-      if (user) throw "Usuário já cadastrado";
+      if (user) return res.status(400).send("Usuário já cadastrado");
       farmerRepository
         .insert(body)
         .then((_) => res.status(201).send("Cadastrado com Sucesso"))
-        .catch((err) => res.status(400).send(err));
+        .catch((err) => {
+          res.status(400).send(err);
+        });
     } catch (error) {
       return res.status(400).send(error);
     }

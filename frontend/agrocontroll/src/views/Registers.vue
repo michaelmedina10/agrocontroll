@@ -15,6 +15,11 @@
                   <TableRegister />
                 </v-col>
               </v-row>
+              <v-row v-else-if="item.content === 'Cadastrar'">
+                <v-col>
+                  <RegisterFarmer />
+                </v-col>
+              </v-row>
             </v-container>
           </v-card-text>
         </v-card>
@@ -28,6 +33,7 @@ export default {
   name: "registers",
   components: {
     TableRegister: () => import("@/components/TableRegister"),
+    RegisterFarmer: () => import("@/components/RegisterFarmer"),
   },
   data() {
     return {
