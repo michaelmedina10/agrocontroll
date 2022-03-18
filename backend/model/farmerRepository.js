@@ -24,4 +24,15 @@ module.exports = {
   update(id, attrs) {
     return db(table).where({ id }).first().update(attrs);
   },
+  amountPesticida() {
+    return db(table)
+      .select("pesticida", db.raw("count(pesticida) as quantidade"))
+      .groupBy("pesticida");
+  },
+
+  amountState() {
+    return db(table)
+      .select("estado", db.raw("count(estado) as quantidade"))
+      .groupBy("estado");
+  },
 };

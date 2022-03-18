@@ -9,4 +9,12 @@ module.exports = (app) => {
     .get(app.controller.farmerController.getById)
     .delete(app.controller.farmerController.remove)
     .put(app.controller.farmerController.update);
+
+  app
+    .route("/grouped/pesticida")
+    .get(app.controller.farmerController.getCountedPesticida);
+
+  app
+    .route("/grouped/estado")
+    .get(app.controller.farmerController.getCountedState);
 };

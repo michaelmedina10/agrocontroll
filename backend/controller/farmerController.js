@@ -72,5 +72,33 @@ module.exports = (app) => {
     }
   };
 
-  return { get, getById, save, remove, update };
+  const getCountedPesticida = (req, res) => {
+    try {
+      farmerRepository
+        .amountPesticida()
+        .then((countedPesticida) => res.json(countedPesticida))
+        .catch((err) => res.status(400).send(err));
+    } catch (error) {
+      return res.status(400).send(err);
+    }
+  };
+
+  const getCountedState = (req, res) => {
+    try {
+      farmerRepository
+        .amountState()
+        .then((countedState) => res.json(countedState))
+        .catch((err) => res.status(400).send(err));
+    } catch (error) {}
+  };
+
+  return {
+    get,
+    getById,
+    save,
+    remove,
+    update,
+    getCountedPesticida,
+    getCountedState,
+  };
 };
