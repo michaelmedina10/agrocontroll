@@ -3,7 +3,14 @@
 Este é um sistema no qual será possível supervisionar os agricultores que fazem uso de algum tipo de agrotóxico.
 
 ## FrontEnd
-![image](https://user-images.githubusercontent.com/68739172/157062173-558c2723-8cc0-4125-acc0-4bb2714c80a4.png)
+![image](https://user-images.githubusercontent.com/68739172/158995215-1e2f57da-1fef-485b-8207-61d919070d97.png)
+
+Dados Ficticios:
+![image](https://user-images.githubusercontent.com/68739172/158995255-4bbc8361-d47b-4852-a124-922a5b42e76a.png)
+
+Cadastrar Registros:
+![image](https://user-images.githubusercontent.com/68739172/158995305-5130784e-d125-4bfd-81c8-c41f5aa3c3f5.png)
+
 
 1º Acesse a pasta agrocontroll com o comando: **cd agrocontroll** <br />
 2º Execute o comando: **npm install** ; // Este comando serve para instalar as dependências usadas no front end <br />
