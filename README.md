@@ -11,6 +11,10 @@ Dados Ficticios:
 Cadastrar Registros:
 ![image](https://user-images.githubusercontent.com/68739172/158995305-5130784e-d125-4bfd-81c8-c41f5aa3c3f5.png)
 
+DashBoard:
+![image](https://user-images.githubusercontent.com/68739172/159040092-6f96d508-c99a-4975-bffc-b691d64a86ad.png)
+![image](https://user-images.githubusercontent.com/68739172/159040129-fea3b083-6ab9-4699-990e-61465ba534d2.png)
+
 
 1º Acesse a pasta agrocontroll com o comando: **cd agrocontroll** <br />
 2º Execute o comando: **npm install** ; // Este comando serve para instalar as dependências usadas no front end <br />
