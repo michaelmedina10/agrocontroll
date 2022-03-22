@@ -17,4 +17,15 @@ module.exports = (app) => {
   app
     .route("/grouped/estado")
     .get(app.controller.farmerController.getCountedState);
+
+  app
+    .route("/users")
+    .post(app.controller.userController.save)
+    .get(app.controller.userController.get);
+
+  app
+    .route("/users/:id")
+    .get(app.controller.userController.getById)
+    .delete(app.controller.userController.remove)
+    .put(app.controller.userController.update);
 };

@@ -1,7 +1,6 @@
 // const { content } = require("./.env");
 const { host, port, user, password, database } = process.env;
 // Update with your config settings.
-
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
