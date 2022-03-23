@@ -20,7 +20,7 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-select
-            label="Admin"
+            :placeholder="userDefault.admin"
             v-model="userDefault.admin"
             :rules="fieldRules"
             :items="adminLevel"
@@ -29,7 +29,9 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-text-field
+            v-if="register"
             label="Senha"
+            type="password"
             v-model="userDefault.senha"
             :rules="fieldRules"
             required
@@ -39,8 +41,11 @@
     </v-form>
     <v-row class="ma-2">
       <v-col cols="12" class="d-flex justify-end">
-        <v-btn large color="primary" @click="registerUser"> Cadastrar</v-btn>
-        <v-btn large class="ml-2"> Limpar</v-btn>
+        <v-btn v-if="register" large color="primary" @click="registerUser">
+          Cadastrar</v-btn
+        >
+        <v-btn v-else large color="error" @click="update"> Atualizar </v-btn>
+        <v-btn large class="ml-2" @click="cleanFields"> Limpar</v-btn>
       </v-col>
     </v-row>
     <v-divider></v-divider>
@@ -48,10 +53,15 @@
       <v-container fluid class="grey lighten-5">
         <v-data-table class="ma-0" :headers="headers" :items="userList">
           <template #[`item.acao`]="{ item }">
-            <v-btn small fab color="warning">
+            <v-btn small fab color="warning" @click="loadUserToUpdate(item)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
-            <v-dialog v-model="dialog" max-width="500px">
+            <v-dialog
+              v-model="dialog"
+              max-width="500px"
+              persistent
+              :retain-focus="false"
+            >
               <template #activator="{ on }">
                 <v-btn
                   small
@@ -59,7 +69,7 @@
                   color="error"
                   class="ml-3"
                   v-on="on"
-                  @click="deleteUser(item)"
+                  @click="openDialog(item)"
                 >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -72,7 +82,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="remove"> Remover </v-btn>
+                  <v-btn color="primary" @click="deleteUser"> Remover </v-btn>
                   <v-btn class="ml-3" @click="closeDialog"> Cancelar </v-btn>
                 </v-card-actions>
               </v-card>
@@ -90,7 +100,10 @@ export default {
   data() {
     return {
       dialog: false,
+      register: true,
+      user: "",
       userDefault: {
+        id: null,
         nome: "",
         email: "",
         admin: "",
@@ -131,17 +144,54 @@ export default {
       } catch (error) {}
     },
     cleanFields() {
+      this.register = true;
       this.userDefault = {};
     },
+    openDialog(user) {
+      this.dialog = true;
+      this.user = { ...user };
+    },
 
-    deleteUser(user) {
-      const itemToBeDeleted = { ...user };
-      console.log(itemToBeDeleted);
-      console.log(itemToBeDeleted.id);
-      Axios.delete(`${process.env.VUE_APP_BASEURL}/users/${itemToBeDeleted.id}`)
-        .then((_) => console.log("Deletado com Sucesso"))
+    deleteUser() {
+      Axios.delete(`${process.env.VUE_APP_BASEURL}/users/${this.user.id}`)
+        .then((_) => {
+          const editedIndex = this.userList.indexOf(
+            this.userList.filter((user) => user.id === this.user.id)[0]
+          );
+          console.log(editedIndex);
+          this.userList.splice(editedIndex);
+        })
         .catch((err) => console.log(err));
-      this.loadUsers();
+      this.closeDialog();
+    },
+    async loadUserToUpdate(user) {
+      await Axios.get(`${process.env.VUE_APP_BASEURL}/users/${user.id}`)
+        .then((res) => (this.user = res.data))
+        .catch((err) => res.send(err));
+      this.userDefault.id = this.user.id;
+      this.userDefault.nome = this.user.nome;
+      this.userDefault.email = this.user.email;
+      this.userDefault.admin = this.user.admin;
+      this.userDefault.senha = this.user.senha;
+      this.register = false;
+      console.log(this.userDefault);
+    },
+
+    update() {
+      Axios.put(
+        `${process.env.VUE_APP_BASEURL}/users/${this.user.id}`,
+        this.userDefault
+      )
+        .then((res) => {
+          const editedIndex = this.userList.indexOf(
+            this.userList.filter((user) => user.id == this.user.id)[0]
+          );
+          this.userDefault.admin = toString(this.userDefault.admin);
+          this.loadUsers();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     closeDialog() {
       this.dialog = false;

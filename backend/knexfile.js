@@ -1,7 +1,7 @@
-// const { content } = require("./.env");
+// Esse import é necessário para o caso de executar o knex sozinho, sem o index.js
+// se deixassémos somente lá o import, esse arquivo não conseguiria ler o .env
 require("dotenv").config();
 const { host, port, user, password, database } = process.env;
-console.log(process.env.user);
 // Update with your config settings.
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
