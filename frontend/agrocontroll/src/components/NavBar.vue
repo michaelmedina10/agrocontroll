@@ -26,9 +26,9 @@
       <template v-slot:prepend>
         <v-row class="ma-5 d-flex flex-column align-center">
           <v-avatar size="80" color="white"
-            ><span class="title">Mic</span></v-avatar
+            ><span class="title">Logo</span></v-avatar
           >
-          <span class="mt-2 white--text subtitle-1">Michael Medina</span>
+          <span class="mt-2 white--text subtitle-1">AgroControll</span>
         </v-row>
         <v-divider></v-divider>
       </template>
@@ -47,10 +47,27 @@
       </v-list>
       <template v-slot:append>
         <v-divider color="#E8F5E9"></v-divider>
-        <v-btn text class="ma-4">
-          <span class="px-2">Michael Medina</span>
-          <v-icon large right>mdi-account-circle</v-icon>
-        </v-btn>
+        <v-menu :offset-x="true">
+          <template #activator="{ on, attrs }">
+            <v-btn text class="ma-4" v-on="on" v-bind="attrs">
+              <span class="px-2">Michael Medina</span>
+              <v-icon large right>mdi-account-circle</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(link, i) in userLinks"
+              :key="i"
+              router
+              :to="link.route"
+            >
+              <v-list-item-icon>
+                <v-icon>{{ link.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{ link.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </template>
     </v-navigation-drawer>
   </nav>
@@ -72,6 +89,10 @@ export default {
         },
       ],
       drawer: true,
+      userLinks: [
+        { icon: "mdi-cog", title: "Admin", route: "/admin" },
+        { icon: "mdi-logout", title: "Log Out", route: "/" },
+      ],
     };
   },
 };

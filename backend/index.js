@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv/config");
+require("dotenv").config();
 const consign = require("consign");
 const app = express();
 const port = 3000;

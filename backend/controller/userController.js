@@ -27,10 +27,8 @@ module.exports = (app) => {
     try {
       const body = { ...req.body };
       const id = req.params.id;
-      const user = await userRepository
-        .getById(id)
-        .then((user) => res.json(user))
-        .catch((err) => res.status(400).send(err));
+      const user = await userRepository.getById(id);
+
       if (!user)
         throw res.status(400).send("Usuário não informado ou não cadastrado");
       body.senha = encryptPassword(body.senha);
@@ -72,10 +70,8 @@ module.exports = (app) => {
   const remove = async (req, res) => {
     try {
       const id = req.params.id;
-      const user = await userRepository
-        .getById(id)
-        .then((user) => res.json(user))
-        .catch((err) => res.status(400).send(err));
+      const user = await userRepository.getById(id);
+
       if (!user)
         throw res.status(400).send("Usuário não informado ou não cadastrado");
 
