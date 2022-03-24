@@ -10,7 +10,6 @@
             <bar-chart
               v-if="loaded"
               :chart-data="chartDataPesticida"
-              :options="options"
             ></bar-chart>
           </v-card-text>
         </v-card>
@@ -21,11 +20,7 @@
             <h1 class="display-1">Estados Cadastrados</h1>
           </v-card-title>
           <v-card-text>
-            <bar-chart
-              v-if="loaded"
-              :chart-data="chartDataEstadoAgrupado"
-              :options="options"
-            >
+            <bar-chart v-if="loaded" :chart-data="chartDataEstadoAgrupado">
             </bar-chart>
           </v-card-text>
         </v-card>
@@ -36,11 +31,7 @@
             <h1 class="display-1">Porcentagem de Estados Cadastrados (%)</h1>
           </v-card-title>
           <v-card-text>
-            <pie-chart
-              v-if="loaded"
-              :chart-data="chartDataPercentageEstado"
-              :options="options"
-            >
+            <pie-chart v-if="loaded" :chart-data="chartDataPercentageEstado">
             </pie-chart>
           </v-card-text>
         </v-card>
@@ -103,21 +94,6 @@ export default {
             data: [],
           },
         ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [
-            {
-              display: true,
-              ticks: {
-                suggestedMin: 0,
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
       },
     };
   },

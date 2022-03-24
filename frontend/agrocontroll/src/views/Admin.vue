@@ -168,13 +168,9 @@ export default {
       await Axios.get(`${process.env.VUE_APP_BASEURL}/users/${user.id}`)
         .then((res) => (this.user = res.data))
         .catch((err) => res.send(err));
-      this.userDefault.id = this.user.id;
-      this.userDefault.nome = this.user.nome;
-      this.userDefault.email = this.user.email;
-      this.userDefault.admin = this.user.admin;
-      this.userDefault.senha = this.user.senha;
+      this.userDefault = { ...this.user };
       this.register = false;
-      console.log(this.userDefault);
+      console.log(user);
     },
 
     update() {

@@ -5,8 +5,28 @@ export default {
   extends: Doughnut,
   mixins: [reactiveProp],
   props: {
-    chartData: { type: Object, default: null },
-    options: { type: Object, default: null },
+    chartData: {
+      type: Object,
+      default: null,
+    },
+    options: {
+      type: Object,
+      default: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                suggestedMin: 0,
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    },
   },
   mounted() {
     this.renderChart(this.chartData, this.options);
