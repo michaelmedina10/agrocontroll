@@ -1,4 +1,7 @@
 module.exports = (app) => {
+  app.post("/signin", app.controller.auth.signin);
+  app.post("/validateToken", app.controller.auth.validateToken);
+
   app
     .route("/agrousers")
     .get(app.controller.farmerController.get)

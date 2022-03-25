@@ -1,10 +1,6 @@
-module.exports = {
-    authSecret: "",
-    content:{
-        host: "",
-        port: ,
-        user: "",
-        password: "",
-        database: "agrocontroll",
-  }
-}
+host:
+user:
+port:
+password:
+database: agrocontroll
+authSecret: passeparageratokencomvirgula,
