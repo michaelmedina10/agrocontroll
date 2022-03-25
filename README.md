@@ -15,6 +15,13 @@ DashBoard:
 ![image](https://user-images.githubusercontent.com/68739172/159040092-6f96d508-c99a-4975-bffc-b691d64a86ad.png)
 ![image](https://user-images.githubusercontent.com/68739172/159040129-fea3b083-6ab9-4699-990e-61465ba534d2.png)
 
+Admin:
+![image](https://user-images.githubusercontent.com/68739172/160162595-58ec332a-4555-40c0-9d75-7a368d217205.png)
+
+login:
+![image](https://user-images.githubusercontent.com/68739172/160162652-21f3ae5c-dd18-4f0c-ac5f-35134b7079e4.png)
+
+
 
 1º Acesse a pasta agrocontroll com o comando: **cd agrocontroll** <br />
 2º Execute o comando: **npm install** ; // Este comando serve para instalar as dependências usadas no front end <br />
