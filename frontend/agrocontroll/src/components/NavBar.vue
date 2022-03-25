@@ -60,6 +60,7 @@
               :key="i"
               router
               :to="link.route"
+              @click="logout(link.title)"
             >
               <v-list-item-icon>
                 <v-icon>{{ link.icon }}</v-icon>
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+const { VUE_APP_USERKEY } = process.env;
 export default {
   name: "NavBar",
   data() {
@@ -91,9 +93,17 @@ export default {
       drawer: true,
       userLinks: [
         { icon: "mdi-cog", title: "Admin", route: "/admin" },
-        { icon: "mdi-logout", title: "Log Out", route: "/" },
+        { icon: "mdi-logout", title: "Log Out", route: "/signin" },
       ],
     };
+  },
+  methods: {
+    logout(title) {
+      if (title == "Log Out") {
+        localStorage.removeItem(VUE_APP_USERKEY);
+        this.$store.commit("setUser", null);
+      }
+    },
   },
 };
 </script>

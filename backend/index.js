@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 
 consign()
+  .include("./config/passport.js")
   .then("./config/middlewares.js")
   .then("./controller")
   .then("./config/router.js")

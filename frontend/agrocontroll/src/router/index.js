@@ -29,6 +29,11 @@ const routes = [
     name: "Admin",
     component: () => import("@/views/Admin"),
   },
+  {
+    path: "/signin",
+    name: "Signin",
+    component: () => import("@/components/auth/Auth"),
+  },
 ];
 
 const router = new VueRouter({

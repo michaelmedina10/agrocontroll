@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar />
+    <NavBar v-if="this.$store.state.user" />
     <v-main class="grey lighten-5 main">
       <router-view />
     </v-main>
