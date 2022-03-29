@@ -101,7 +101,7 @@ export default {
     return {
       dialog: false,
       register: true,
-      user: "",
+      user: null,
       userDefault: {
         id: null,
         nome: "",
@@ -164,25 +164,20 @@ export default {
         .catch((err) => console.log(err));
       this.closeDialog();
     },
-    async loadUserToUpdate(user) {
-      await Axios.get(`${process.env.VUE_APP_BASEURL}/users/${user.id}`)
-        .then((res) => (this.user = res.data))
-        .catch((err) => res.send(err));
-      this.userDefault = { ...this.user };
+    loadUserToUpdate(user) {
+      this.userDefault = { ...user };
       this.register = false;
-      console.log(user);
     },
 
     update() {
       Axios.put(
-        `${process.env.VUE_APP_BASEURL}/users/${this.user.id}`,
+        `${process.env.VUE_APP_BASEURL}/users/${this.userDefault.id}`,
         this.userDefault
       )
         .then((res) => {
           const editedIndex = this.userList.indexOf(
-            this.userList.filter((user) => user.id == this.user.id)[0]
+            this.userList.filter((user) => user.id == this.userDefault.id)[0]
           );
-          this.userDefault.admin = toString(this.userDefault.admin);
           this.loadUsers();
         })
         .catch((err) => {

@@ -21,6 +21,6 @@ module.exports = {
     return db(table).where({ id }).first().del();
   },
   update(id, attrs) {
-    return db(table).where({ id }).update(attrs);
+    return db(table).update(attrs).where({ id });
   },
 };

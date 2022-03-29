@@ -29,9 +29,10 @@ module.exports = (app) => {
       const id = req.params.id;
       const user = await userRepository.getById(id);
 
-      if (!user)
+      if (!user) {
         throw res.status(400).send("Usuário não informado ou não cadastrado");
-      body.senha = encryptPassword(body.senha);
+      }
+      // body.senha = encryptPassword(body.senha);
       userRepository
         .update(id, body)
         .then((_) =>
