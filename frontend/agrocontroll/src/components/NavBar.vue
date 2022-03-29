@@ -50,13 +50,13 @@
         <v-menu :offset-x="true">
           <template #activator="{ on, attrs }">
             <v-btn text class="ma-4" v-on="on" v-bind="attrs">
-              <span class="px-2">Michael Medina</span>
+              <span class="px-2">{{ user.name }}</span>
               <v-icon large right>mdi-account-circle</v-icon>
             </v-btn>
           </template>
           <v-list>
             <v-list-item
-              v-for="(link, i) in userLinks"
+              v-for="(link, i) in computedUserLinks"
               :key="i"
               router
               :to="link.route"
@@ -80,6 +80,7 @@ export default {
   name: "NavBar",
   data() {
     return {
+      user: this.$store.state.user,
       links: [
         { icon: "mdi-home", title: "Home", route: "/" },
         { icon: "mdi-account", title: "Registers", route: "/registers" },
@@ -103,6 +104,12 @@ export default {
         localStorage.removeItem(VUE_APP_USERKEY);
         this.$store.commit("setUser", null);
       }
+    },
+  },
+  computed: {
+    computedUserLinks() {
+      if (this.user.admin == "1") return this.userLinks;
+      return this.userLinks.filter((link) => link.title != "Admin");
     },
   },
 };

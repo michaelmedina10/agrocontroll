@@ -8,14 +8,48 @@
 </template>
 
 <script>
+import Axios from "axios";
+const { VUE_APP_BASEURL, VUE_APP_USERKEY } = process.env;
 export default {
   name: "App",
   components: {
     NavBar: () => import("./components/NavBar.vue"),
   },
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      validatingToken: true,
+    };
+  },
+  methods: {
+    async validateToken() {
+      this.validatingToken = true;
+      const json = localStorage.getItem(VUE_APP_USERKEY);
+      const userData = JSON.parse(json);
+      this.$store.commit("setUser", null);
+
+      if (!userData) {
+        this.validatingToken = false;
+        this.$router.push({ name: "Signin" });
+        return;
+      }
+
+      const res = await Axios.post(
+        `${VUE_APP_BASEURL}/validateToken`,
+        userData
+      );
+      if (res.data) {
+        this.$store.commit("setUser", userData);
+      } else {
+        localStorage.removeItem(VUE_APP_USERKEY);
+        this.$router.push({ name: "Signin" });
+      }
+
+      this.validatingToken = false;
+    },
+  },
+  created() {
+    this.validateToken();
+  },
 };
 </script>
 <style>
