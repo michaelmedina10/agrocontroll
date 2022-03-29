@@ -12,10 +12,8 @@ module.exports = (app) => {
 
       const user = await userRepository.getByEmail(req.body.email);
       if (!user) return res.status(400).send("Usuário não encontrado!");
-      console.log(user);
 
       const isMatch = bcrypt.compareSync(req.body.senha, user.senha);
-      console.log(isMatch);
       if (!isMatch) return res.status(401).send("E-mail ou senha inválidos");
 
       const now = Math.floor(Date.now() / 1000);
