@@ -8,10 +8,15 @@
       </v-card-title>
       <v-card-text>
         <v-divider></v-divider>
-        <v-form ref="form" v-model="valid">
+        <v-form ref="form">
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="user.email" label="E-mail" required>
+              <v-text-field
+                v-model="user.email"
+                label="E-mail"
+                required
+                :rules="emailRules"
+              >
               </v-text-field>
             </v-col>
             <v-col cols="12">
@@ -19,6 +24,7 @@
                 v-model="user.senha"
                 label="Senha"
                 type="password"
+                :rules="fieldRules"
                 required
               >
               </v-text-field>
@@ -44,18 +50,27 @@ export default {
   data() {
     return {
       user: {},
-      valid: false,
+      fieldRules: [(v) => !!v || "Campo obrigatório"],
+      emailRules: [
+        (v) => !!v || "E-mail é obrigatório",
+        (v) => /.+@.+\..+/.test(v) || "E-mail deve ser válido",
+      ],
     };
   },
   methods: {
     signin() {
-      Axios.post(`${VUE_APP_BASEURL}/signin`, this.user)
-        .then((res) => {
-          this.$store.commit("setUser", res.data);
-          localStorage.setItem(VUE_APP_USERKEY, JSON.stringify(res.data));
-          this.$router.push({ path: "/" });
-        })
-        .catch((err) => console.log(err));
+      try {
+        if (this.$refs.form.validate()) {
+          Axios.post(`${VUE_APP_BASEURL}/signin`, this.user)
+            .then((res) => {
+              this.$store.commit("setUser", res.data);
+              localStorage.setItem(VUE_APP_USERKEY, JSON.stringify(res.data));
+              this.$router.push({ path: "/" });
+              this.$refs.form.reset();
+            })
+            .catch((err) => console.log(err));
+        }
+      } catch (error) {}
     },
   },
 };
