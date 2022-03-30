@@ -150,6 +150,7 @@ export default {
     openDialog(user) {
       this.dialog = true;
       this.user = { ...user };
+      console.log(this.user);
     },
 
     deleteUser() {
@@ -158,8 +159,8 @@ export default {
           const editedIndex = this.userList.indexOf(
             this.userList.filter((user) => user.id === this.user.id)[0]
           );
-          console.log(editedIndex);
           this.userList.splice(editedIndex);
+          this.loadUsers();
         })
         .catch((err) => console.log(err));
       this.closeDialog();
