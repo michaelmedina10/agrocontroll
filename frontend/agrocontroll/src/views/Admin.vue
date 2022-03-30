@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="grey lighten-5">
-    <v-form>
+    <v-form ref="form">
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field
@@ -29,7 +29,7 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            v-if="register"
+            readonly
             label="Senha"
             type="password"
             v-model="userDefault.senha"
@@ -114,7 +114,7 @@ export default {
         (v) => !!v || "E-mail é obrigatório",
         (v) => /.+@.+\..+/.test(v) || "E-mail deve ser válido",
       ],
-      adminLevel: [1, 2, 3],
+      adminLevel: ["1", "2", "3"],
       headers: [
         { text: "ID", value: "id" },
         { text: "Nome", value: "nome" },
@@ -133,24 +133,26 @@ export default {
     },
     registerUser() {
       try {
-        console.log(this.userDefault);
-        Axios.post(`${process.env.VUE_APP_BASEURL}/users`, this.userDefault)
-          .then((res) => {
-            console.log("Cadastrado com sucesso");
-            this.loadUsers();
-            this.cleanFields();
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {}
+        if (this.$refs.form.validate()) {
+          Axios.post(`${process.env.VUE_APP_BASEURL}/users`, this.userDefault)
+            .then((res) => {
+              console.log("Cadastrado com sucesso");
+              this.loadUsers();
+              this.cleanFields();
+            })
+            .catch((err) => console.log(err));
+        }
+      } catch (error) {
+        console.log(console.log(error));
+      }
     },
     cleanFields() {
       this.register = true;
-      this.userDefault = {};
+      this.$refs.form.reset();
     },
     openDialog(user) {
       this.dialog = true;
       this.user = { ...user };
-      console.log(this.user);
     },
 
     deleteUser() {

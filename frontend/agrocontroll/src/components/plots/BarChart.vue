@@ -9,20 +9,22 @@ export default {
     chartData: { type: Object, default: null },
     options: {
       type: Object,
-      default: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [
-            {
-              display: true,
-              ticks: {
-                suggestedMin: 0,
-                beginAtZero: true,
+      default() {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  beginAtZero: true,
+                },
               },
-            },
-          ],
-        },
+            ],
+          },
+        };
       },
     },
   },

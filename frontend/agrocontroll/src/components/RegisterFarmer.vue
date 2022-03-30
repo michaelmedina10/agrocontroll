@@ -4,7 +4,7 @@
       <h1>Cadastrar</h1>
     </v-card-title>
     <v-card-text>
-      <v-form>
+      <v-form ref="form">
         <v-container>
           <v-row>
             <v-col cols="12" sm="6">
@@ -153,24 +153,30 @@ export default {
   methods: {
     register() {
       this.registerFarmer.idade = parseInt(this.registerFarmer.idade);
-      Axios.post(
-        `${process.env.VUE_APP_BASEURL}/agrousers`,
-        this.registerFarmer
-      )
-        .then((res) => {
-          this.status = res.data;
-          console.log(this.status);
-        })
-        .catch((_) => {
-          const mensagem = "Erro ao Cadastrar!!!";
-          this.status = mensagem;
-          console.log(this.status);
-        });
+      try {
+        if (this.$refs.form.validate()) {
+          Axios.post(
+            `${process.env.VUE_APP_BASEURL}/agrousers`,
+            this.registerFarmer
+          )
+            .then((res) => {
+              this.status = res.data;
+              console.log(this.status);
+            })
+            .catch((_) => {
+              const mensagem = "Erro ao Cadastrar!!!";
+              this.status = mensagem;
+              console.log(this.status);
+            });
+        }
+      } catch (error) {
+        return error;
+      }
       this.cleanForm();
     },
 
     cleanForm() {
-      this.registerFarmer = {};
+      this.$refs.form.reset();
     },
   },
 };
